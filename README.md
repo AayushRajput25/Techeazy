@@ -106,6 +106,13 @@ This Assignment is a **backend** application where a user can signup as admin an
 	6. Unenroll from Subject 
 	- URL - http://localhost:8080/student/enroll/{EnrollmentId} (Delete)
 
+## Security
+    - Role based security - **Admin** Role and **Student** Role 
+    - Student can access all student API endpoints to access Jwt token will be generated on login as student
+        - ** Header**
+            - Key - Authorization
+            - Value - Bearer {JWT TOKEN}
+
 
 
 ```

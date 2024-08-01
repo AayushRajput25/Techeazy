@@ -47,21 +47,14 @@ public class JwtUtils {
 		log.info("generate jwt token " + authentication);
 		System.out.println("inside tokenGenerator"+authentication.toString());
 		CustomUserDetails userPrincipal = (CustomUserDetails) authentication.getPrincipal();
-//JWT : userName,issued at ,exp date,digital signature(does not typically contain password , can contain authorities
-		return Jwts.builder() // JWTs : a Factory class , used to create JWT tokens
-				.setSubject((userPrincipal.getUsername())) // setting subject part of the token(typically user
-															// name/email)
-				.setIssuedAt(new Date())// Sets the JWT Claims iat (issued at) value of current date
-				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))// Sets the JWT Claims exp
-																					// (expiration) value.
-				// setting a custom claim
+		return Jwts.builder() 
+				.setSubject((userPrincipal.getUsername())) 
+				.setIssuedAt(new Date())
+				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 				.claim("authorities", getAuthoritiesInString(userPrincipal.getAuthorities()))
-				.signWith(key, SignatureAlgorithm.HS512) // Signs the constructed JWT using the specified
-															// algorithm with the specified key, producing a
-															// JWS(Json web signature=signed JWT)
-
+				.signWith(key, SignatureAlgorithm.HS512) 
 				// Using token signing algo : HMAC using SHA-512
-				.compact();// Actually builds the JWT and serializes it to a compact, URL-safe string
+				.compact();
 	}
 
 	// this method will be invoked by our custom JWT filter
@@ -73,13 +66,11 @@ public class JwtUtils {
 	public Claims validateJwtToken(String jwtToken) {
 		// try {
 		Claims claims = Jwts.parserBuilder().setSigningKey(key).build().
-		// Sets the signing key used to verify JWT digital signature.
-				parseClaimsJws(jwtToken).getBody();// Parses the signed JWT returns the resulting Jws<Claims> instance
-		// throws exc in case of failures in verification
+		
+				parseClaimsJws(jwtToken).getBody();
 		return claims;		
 	}
-	// Accepts Collection<GrantedAuthority> n rets comma separated list of it's
-	// string form
+	
 
 	private String getAuthoritiesInString(Collection<? extends GrantedAuthority> authorities) {
 		String authorityString = authorities.stream().
