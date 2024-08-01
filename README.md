@@ -108,12 +108,11 @@ This Assignment is a **backend** application where a user can signup as admin an
 
 ## Security
 
-    - Role based security - **Admin** Role and **Student** Role 
-    - Student can access all student API endpoints to access Jwt token will be generated on login as student
-        - ** Header**
+- Role based security - **Admin** Role and **Student** Role 
+- Student can access all student API endpoints to access Jwt token will be generated on login as student
+        - **Student**
             - Key - Authorization
             - Value - Bearer {JWT TOKEN}
-
 
 
 ```
